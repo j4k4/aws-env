@@ -38,7 +38,11 @@ func main() {
 }
 
 func CreateSession() *session.Session {
-	return session.Must(session.NewSession())
+	config := aws.Config{
+		MaxRetries: aws.Int(3),
+	}
+
+	return session.Must(session.NewSession(&config))
 }
 
 func CreateClient(sess *session.Session) *ssm.SSM {
